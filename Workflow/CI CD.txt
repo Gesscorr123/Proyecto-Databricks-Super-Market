@@ -1,35 +1,78 @@
 resources:
   jobs:
     orquestación_supermercado:
-      name: "orquestación supermercado "
+      name: orquestación supermercado
       tasks:
+        - task_key: Preparacion_Ambiente
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Preparacion de ambiente
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
         - task_key: Ingesta_Bronze
+          depends_on:
+            - task_key: Preparacion_Ambiente
           notebook_task:
             notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
               Analytics Platform/Bronze
             source: WORKSPACE
           existing_cluster_id: 0212-042655-h64jz94w
         - task_key: Ingesta_incremental_bronze
+          depends_on:
+            - task_key: Ingesta_Bronze
           notebook_task:
             notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
               Analytics Platform/Ingesta_Incremental_Bronze
             source: WORKSPACE
           existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Ingesta_Ecommerce_Bronze
+          depends_on:
+            - task_key: Preparacion_Ambiente
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Ingesta_Ecommerce_Bronze
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
         - task_key: Silver
           depends_on:
-            - task_key: Ingesta_Bronze
             - task_key: Ingesta_incremental_bronze
           notebook_task:
             notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
               Analytics Platform/Silver
             source: WORKSPACE
           existing_cluster_id: 0212-042655-h64jz94w
-        - task_key: Gold
+        - task_key: Silver_Ecommerce
           depends_on:
             - task_key: Silver
+            - task_key: Ingesta_Ecommerce_Bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Silver_Ecommerce
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Gold
+          depends_on:
+            - task_key: Silver_Ecommerce
           notebook_task:
             notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
               Analytics Platform/Gold
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Gold_Ecommerce_Report
+          depends_on:
+            - task_key: Silver_Ecommerce
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Gold_Ecommerce_Report
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Seguridad
+          depends_on:
+            - task_key: Gold
+            - task_key: Gold_Ecommerce_Report
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Seguridad
             source: WORKSPACE
           existing_cluster_id: 0212-042655-h64jz94w
       queue:

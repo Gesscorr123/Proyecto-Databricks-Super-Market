@@ -68,7 +68,8 @@ Preparacion_Ambiente
 ### Seguridad
 - `Seguridad`: GRANTS de acceso sobre tablas y vistas Gold mediante Unity Catalog
 
-<img width="839" height="267" alt="orquestación supermercado run Graph" src="https://github.com/user-attachments/assets/7b4d61c3-5597-499b-9242-ec065556f4d9" />
+<img width="1717" height="439" alt="Captura de pantalla 2026-02-21 112524" src="https://github.com/user-attachments/assets/81892796-5aff-46ae-8051-08ff008debce" />
+
 <img width="1918" height="972" alt="orquestación supermercado run Timeline" src="https://github.com/user-attachments/assets/1b8d851c-af05-47d9-9806-edc454e465a2" />
 
 ---

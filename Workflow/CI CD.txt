@@ -1,0 +1,36 @@
+resources:
+  jobs:
+    orquestación_supermercado:
+      name: "orquestación supermercado "
+      tasks:
+        - task_key: Ingesta_Bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Bronze
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Ingesta_incremental_bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Ingesta_Incremental_Bronze
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Silver
+          depends_on:
+            - task_key: Ingesta_Bronze
+            - task_key: Ingesta_incremental_bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Silver
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+        - task_key: Gold
+          depends_on:
+            - task_key: Silver
+          notebook_task:
+            notebook_path: /Workspace/Users/santiagogilcorredor@outlook.com/SmartRetail
+              Analytics Platform/Gold
+            source: WORKSPACE
+          existing_cluster_id: 0212-042655-h64jz94w
+      queue:
+        enabled: true
